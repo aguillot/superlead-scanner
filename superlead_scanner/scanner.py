@@ -42,7 +42,7 @@ class Scanner:
         return self.port.read(command.response_size) == command.ack
 
     def _block_until_data(self):
-        while self.port.in_waiting == 0 and self._keep_blocking:
+        while self.port.in_waiting == 0:
             time.sleep(self.BLOCK_DURATION)
 
     def reset_defaults_settings(self):
@@ -57,7 +57,6 @@ class Scanner:
     def trigger_and_read(self) -> bytes:
         self.port.reset_input_buffer()
         self.port.write(commands.trigger)
-        self._keep_blocking = True
         self._block_until_data()
         return self.port.read(self.port.in_waiting)
 
