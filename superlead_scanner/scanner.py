@@ -54,6 +54,9 @@ class Scanner:
     def presentation_mode(self):
         return self._send_command_with_ack(commands.presentation_mode)
 
+    def scan_delay_500ms(self):
+        return self._send_command_with_ack(commands.scan_delay_500ms)
+
     def trigger_and_read(self) -> bytes:
         self.port.reset_input_buffer()
         self.port.write(commands.trigger)
